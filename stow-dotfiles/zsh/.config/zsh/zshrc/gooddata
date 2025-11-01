@@ -1,0 +1,44 @@
+# Source private configuration if it exists
+if [[ -f "$HOME/.config/zsh/zshrc/.private" ]]; then
+    source "$HOME/.config/zsh/zshrc/.private"
+fi
+
+# Java options for GoodData development
+export JAVA_OPTS="-Xmx1g --add-opens=java.base/sun.net=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED"
+
+
+prepare_to_develop() {
+  awslog && renew_code_artifact && kubelog
+}
+
+awslog() {
+  aws sso login --profile infra1 && \
+  aws --profile infra1 ecr get-login-password | \
+  docker login --username AWS --password-stdin "$AWS_REGISTRY_URL"
+}
+
+
+function renew_code_artifact {
+    export CODEARTIFACT_AUTH_TOKEN="$(aws codeartifact get-authorization-token \
+      --profile infra1 \
+      --domain infra1 \
+      --domain-owner $AWS_ACCOUNT_ID \
+      --region $AWS_REGION \
+      --query authorizationToken --output text)"
+    echo $CODEARTIFACT_AUTH_TOKEN | tee ~/.gradle/.codeartifact-token
+}
+
+kubelog(){
+  aws sso login --profile aws-stg11 && \
+  aws eks --region us-east-1 update-kubeconfig --name stg11 --profile aws-stg11
+}
+
+start_platform() {
+  docker compose build && sleep 3 && \
+  docker compose -f docker-compose.yaml -f docker-compose-monitoring.yaml up -d pulsar-create-namespace postgres redis router && sleep 3 && \
+  docker compose -f docker-compose.yaml -f docker-compose-monitoring.yaml --profile ai config --services \
+    | grep -Ev 'metadata-organization-bootstrap|create-ds|metadata-api-store-model' \
+    | xargs docker compose -f docker-compose.yaml -f docker-compose-monitoring.yaml up -d && sleep 3 && \
+  docker compose up metadata-api-store-model --remove-orphans && sleep 3 && \
+  docker compose up --build --watch gen-ai
+}

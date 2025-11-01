@@ -1,0 +1,3 @@
+normi() {
+    norminette -R CheckForbiddenSourceHeader "$@"
+}
