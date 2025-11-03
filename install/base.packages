@@ -24,7 +24,7 @@ jq
 lazydocker
 lazygit
 llvm
-localsend
+# localsend
 man
 mise
 mpv
