@@ -3,16 +3,9 @@ typeset -U path PATH
 
 # Define default paths in order of precedence
 path=(
-  # Nix paths
-  $HOME/.nix-profile/bin
-  /nix/var/nix/profiles/default/bin
-  
   # User paths
   $HOME/.local/bin
   $HOME/bin
-  
-  # FZF path (if needed)
-  $HOME/.fzf/bin
   
   # System paths
   /usr/local/bin
@@ -53,7 +46,6 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::ubuntu
 zinit snippet OMZP::command-not-found
 
 # Load completions
