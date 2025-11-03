@@ -1,4 +1,4 @@
-# Ccore package list installed via install/packaging/base.sh
+# Core package list installed via install/packaging/base.sh
 
 bat
 brightnessctl
