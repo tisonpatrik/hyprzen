@@ -10,5 +10,5 @@ make clean    # Remove symlinks and clean config files
 make restart  # Clean and reapply configuration
 ```
 
-
+yay -S niri
 yay -S noctalia-shell
