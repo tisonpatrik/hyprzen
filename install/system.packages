@@ -1,0 +1,4 @@
+# System package list installed via install/packaging/system.sh
+
+plymouth
+sddm

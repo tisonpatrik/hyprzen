@@ -2,8 +2,6 @@
 
 bat
 brightnessctl
-cargo
-clang
 cups
 cups-browsed
 cups-filters
@@ -27,7 +25,6 @@ lazydocker
 lazygit
 llvm
 localsend
-luarocks
 man
 mise
 mpv
@@ -50,6 +47,7 @@ unzip
 whois
 wireless-regdb
 wiremix
+wl-clipboard
 xournalpp
 yay
 zoxide
