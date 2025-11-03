@@ -1,5 +1,5 @@
 abort() {
-  echo -e "\e[31mOmarchy install requires: $1\e[0m"
+  echo -e "\e[Install requires: $1\e[0m"
   echo
   gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
 }
@@ -36,8 +36,8 @@ if pacman -Qe gnome-shell &>/dev/null || pacman -Qe plasma-desktop &>/dev/null; 
   abort "Fresh + Vanilla Arch"
 fi
 
-# Must have limine installed
-command -v limine &>/dev/null || abort "Limine bootloader"
+# Must have GRUB installed
+command -v grub-install &>/dev/null || abort "GRUB bootloader"
 
 # Must have btrfs root filesystem
 [ "$(findmnt -n -o FSTYPE /)" = "btrfs" ] || abort "Btrfs root filesystem" 
