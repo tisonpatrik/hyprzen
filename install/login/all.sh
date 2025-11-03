@@ -1,5 +1,5 @@
-run_logged $OMARCHY_INSTALL/login/plymouth.sh
-run_logged $OMARCHY_INSTALL/login/grub.sh
-run_logged $OMARCHY_INSTALL/login/default-keyring.sh
-run_logged $OMARCHY_INSTALL/login/sddm.sh
-run_logged $OMARCHY_INSTALL/login/limine-snapper.sh
+run_logged $INSTALL_PATH/login/plymouth.sh
+run_logged $INSTALL_PATH/login/grub.sh
+run_logged $INSTALL_PATH/login/default-keyring.sh
+run_logged $INSTALL_PATH/login/sddm.sh
+run_logged $INSTALL_PATH/login/limine-snapper.sh

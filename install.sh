@@ -5,7 +5,7 @@ set -eEo pipefail
 
 # Define locations
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export INSTALL_PATH="${SCRIPT_DIR}"
+export INSTALL_PATH="${SCRIPT_DIR}/install"
 
 
 # Install
