@@ -40,6 +40,7 @@ signal-desktop
 stow
 system-config-printer
 tldr
+trash-cli
 ttf-jetbrains-mono-nerd
 # tzupdate
 ufw

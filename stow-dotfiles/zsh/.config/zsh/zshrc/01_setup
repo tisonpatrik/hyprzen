@@ -33,6 +33,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
 alias ls='ls --color'
+alias rm='trash-put'
 
 # Shell integrations
 # Set up fzf key bindings and fuzzy completion
