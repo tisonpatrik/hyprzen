@@ -18,6 +18,7 @@ jq
 llvm
 man
 mise
+rust
 stow
 system-config-printer
 ufw
