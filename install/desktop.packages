@@ -1,0 +1,21 @@
+# Desktop package list installed via install/packaging/base.sh
+
+noctalia-shell
+
+ghostty
+nvim
+
+grim
+slurp
+satty
+wayfreeze
+wl-copy
+
+obsidian
+pinta
+evince
+mpv
+signal-desktop
+spotify
+xournalpp
+localsend

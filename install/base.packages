@@ -1,6 +1,5 @@
 # Core package list installed via install/packaging/base.sh
 
-bat
 brightnessctl
 cups
 cups-browsed
@@ -9,8 +8,8 @@ cups-pdf
 docker
 docker-buildx
 docker-compose
-dust
-evince
+
+
 eza
 fastfetch
 fd
@@ -24,27 +23,18 @@ jq
 lazydocker
 lazygit
 llvm
-# localsend
 man
 mise
 mpv
 nvim
-obsidian
-# pinta
 plocate
-plymouth
 ripgrep
-satty
-signal-desktop
-# spotify
 stow
 system-config-printer
 tldr
 trash-cli
 ttf-jetbrains-mono-nerd
-# tzupdate
 ufw
-# ufw-docker
 unzip
 whois
 wireless-regdb

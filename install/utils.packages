@@ -1,0 +1,20 @@
+# Uitls package list installed via install/packaging/base.sh
+
+
+bat
+dust
+eza
+fastfetch
+fd
+fzf
+lazydocker
+lazygit
+plocate
+ripgrep
+tldr
+trash-cli
+ttf-jetbrains-mono-nerd
+
+tzupdate
+ufw-docker
+zoxide
