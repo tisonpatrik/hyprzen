@@ -4,8 +4,6 @@ ca-certificates
 ca-certificates-mozilla
 ca-certificates-utils
 curl
-git  
-openssl 
 nss
 plymouth
 reflector

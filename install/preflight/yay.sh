@@ -1,5 +1,5 @@
 yay_install() {
-  sudo pacman -S --needed --noconfirm base-devel
+  sudo pacman -S --needed --noconfirm git openssl base-devel
 
   if command -v yay &>/dev/null; then
     return 0
