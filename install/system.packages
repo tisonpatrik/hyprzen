@@ -3,9 +3,11 @@
 ca-certificates
 ca-certificates-mozilla
 ca-certificates-utils
+curl
+git  
 openssl 
-nss 
-curl 
-git
+nss
 plymouth
+reflector
 sddm
+wget
