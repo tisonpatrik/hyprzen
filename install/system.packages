@@ -5,6 +5,7 @@ ca-certificates-mozilla
 ca-certificates-utils
 curl
 nss
+pacman-contrib
 plymouth
 reflector
 sddm

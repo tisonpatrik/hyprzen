@@ -22,8 +22,13 @@ configure_mirrorlist() {
 }
 
 enable_package_cache() {
+  ensure_pkg "pacman-contrib"
   sudo systemctl enable --now paccache.timer
+  systemctl list-timers | grep -E "paccache|reflector" || true
 }
+
+
+
 
 install_base_packages
 setup_system_trust
