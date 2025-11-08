@@ -5,10 +5,13 @@ yay_install() {
     return 0
   fi
 
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
+  local original_dir="$(pwd)"
+  mkdir -p ~/bin
+  cd ~/bin
+  git clone https://aur.archlinux.org/yay-bin.git
+  cd yay-bin
   makepkg -si
-  cd ~
+  cd "$original_dir"
 }
 
 yay_install

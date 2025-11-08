@@ -7,6 +7,8 @@ set -eEo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export INSTALL_PATH="${SCRIPT_DIR}/install"
 
+# Create ~/bin directory for repositories and scripts
+mkdir -p ~/bin
 
 # Install
 source "$INSTALL_PATH/preflight/all.sh"
