@@ -1,4 +1,11 @@
 # System package list installed via install/packaging/system.sh
 
+ca-certificates
+ca-certificates-mozilla
+ca-certificates-utils
+openssl 
+nss 
+curl 
+git
 plymouth
 sddm

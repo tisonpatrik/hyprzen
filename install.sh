@@ -13,6 +13,7 @@ mkdir -p ~/bin
 # Install
 source "$INSTALL_PATH/preflight/all.sh"
 source "$INSTALL_PATH/packaging/all.sh"
+source "$INSTALL_PATH/login/all.sh"
+
 # source "$INSTALL_PATH/config/all.sh"
-# source "$INSTALL_PATH/login/all.sh"
 # source "$INSTALL_PATH/post-install/all.sh"

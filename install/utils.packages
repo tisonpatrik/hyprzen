@@ -1,6 +1,5 @@
 # Uitls package list installed via install/packaging/base.sh
 
-
 bat
 dust
 eza
@@ -14,7 +13,9 @@ ripgrep
 tldr
 trash-cli
 ttf-jetbrains-mono-nerd
-
 tzupdate
 ufw-docker
 zoxide
+
+snapper-support 
+btrfs-assistant
