@@ -1,7 +1,7 @@
 # Core package list installed via install/packaging/hyprland.sh
 
 hyprland
-hyprland-qtutils
+# hyprland-qtutils
 hyprpicker
 
 uwsm
