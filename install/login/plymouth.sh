@@ -11,4 +11,3 @@ sudo cp -r "$TEMP_DIR/plymouth/themes/catppuccin-mocha" /usr/share/plymouth/them
 
 # Set plymouth theme
 sudo plymouth-set-default-theme -R catppuccin-mocha
-
