@@ -15,5 +15,12 @@ source "$INSTALL_PATH/preflight/all.sh"
 source "$INSTALL_PATH/packaging/all.sh"
 source "$INSTALL_PATH/login/all.sh"
 
-# source "$INSTALL_PATH/config/all.sh"
-# source "$INSTALL_PATH/post-install/all.sh"
+# Apply configuration
+source "$INSTALL_PATH/config/all.sh"
+
+# Optional restart
+if [ "${1:-}" = "--restart" ]; then
+  echo "Restarting system in 10 seconds... (Ctrl+C to cancel)"
+  sleep 10
+  sudo reboot
+fi

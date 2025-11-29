@@ -12,4 +12,6 @@ EOF
 fi
 
 # Don't use chrootable here as --now will cause issues for manual installs
-sudo systemctl enable sddm.service
+if systemctl list-unit-files | grep -q "^sddm.service"; then
+  sudo systemctl enable sddm.service
+fi
