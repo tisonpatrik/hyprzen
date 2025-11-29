@@ -1,10 +1,11 @@
 # Core package list installed via install/packaging/hyprland.sh
 
 hyprland
-# hyprland-qtutils
 hyprpicker
 
 uwsm
+
+sddm
 
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
