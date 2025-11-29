@@ -1,5 +1,6 @@
 # Core package list installed via install/packaging/hyprland.sh
 
+hyprlang-git
 hyprland
 hyprpicker
 
