@@ -4,7 +4,7 @@ yay -S --needed --noconfirm "${packages[@]}"
 
 steam_install() {
   echo "Now pick dependencies matching your graphics card"
-  sudo pacman -Syu --noconfirm steam
+  sudo yay -Syu --noconfirm steam
   setsid gtk-launch steam >/dev/null 2>&1 &
 }
 
