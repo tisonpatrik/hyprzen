@@ -4,10 +4,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "Applying dotfiles configuration..."
 cd "$REPO_ROOT" && make apply
-
-# Set zsh as default shell
-echo "Configuring zsh as default shell..."
+source "$SCRIPT_DIR/docker.sh"
+source "$SCRIPT_DIR/fast-shutdown.sh"
 source "$SCRIPT_DIR/zsh.sh"
-
