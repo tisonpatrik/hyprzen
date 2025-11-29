@@ -1,6 +1,7 @@
 # Core package list installed via install/packaging/base.sh
 
 brightnessctl
+bluetui
 cups
 cups-browsed
 cups-filters
@@ -8,6 +9,7 @@ cups-pdf
 docker
 docker-buildx
 docker-compose
+exfatprogs
 github-cli
 grub-btrfs
 impala
@@ -16,11 +18,12 @@ inetutils
 iwd
 jq
 llvm
-man
+man-db
 mise
 rust
 stow
 system-config-printer
+usage
 ufw
 unzip
 whois
