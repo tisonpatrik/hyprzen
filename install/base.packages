@@ -20,7 +20,7 @@ jq
 llvm
 man-db
 mise
-rust
+rustup
 stow
 system-config-printer
 usage
