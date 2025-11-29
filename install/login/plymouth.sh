@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install plymouth and catppuccin theme from AUR
-yay -S --needed --noconfirm plymouth-git plymouth-theme-catppuccin-mocha-git
+yay -S --needed --noconfirm plymouth plymouth-theme-catppuccin-mocha-git
 
 # Configure plymouth for LUKS encryption
 if [ -f /etc/mkinitcpio.conf ]; then
