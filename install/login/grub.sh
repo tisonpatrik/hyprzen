@@ -1,86 +1,51 @@
 #!/bin/bash
 
-# Clone catppuccin grub theme repository
-TEMP_DIR=$(mktemp -d)
-trap "rm -rf $TEMP_DIR" EXIT
+# --- 1. Nastavení proměnných ---
+THEME_DIR="/boot/grub/themes"
+THEME_NAME="catppuccin-mocha-grub-theme"
+GRUB_CFG="/etc/default/grub"
 
-git clone https://github.com/catppuccin/grub.git "$TEMP_DIR/grub"
+# --- 2. Instalace tématu ---
+# Stáhneme jen to potřebné do /tmp, přesuneme a uklidíme
+git clone --depth 1 https://github.com/catppuccin/grub.git /tmp/catppuccin-grub
+sudo mkdir -p "$THEME_DIR"
+sudo cp -r "/tmp/catppuccin-grub/src/$THEME_NAME" "$THEME_DIR/"
+rm -rf /tmp/catppuccin-grub
 
-# Copy all themes from src to both theme directories
-sudo mkdir -p /usr/share/grub/themes
-sudo mkdir -p /boot/grub/themes
-sudo cp -r "$TEMP_DIR/grub/src"/* /usr/share/grub/themes/
-sudo cp -r "$TEMP_DIR/grub/src"/* /boot/grub/themes/
+# --- 3. Konfigurace GRUBu ---
+echo "Konfiguruji /etc/default/grub..."
 
-# Modify /etc/default/grub to set GRUB theme
-if [ -f /etc/default/grub ]; then
-  # Set GRUB_THEME
-  if grep -q "^GRUB_THEME=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_THEME=.*|GRUB_THEME="/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt"|' /etc/default/grub
-  else
-    echo 'GRUB_THEME="/boot/grub/themes/catppuccin-mocha-grub-theme/theme.txt"' | sudo tee -a /etc/default/grub > /dev/null
-  fi
+# Záloha pro jistotu
+sudo cp "$GRUB_CFG" "$GRUB_CFG.bak"
 
-  # Set GRUB_GFXMODE
-  if grep -q "^GRUB_GFXMODE=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_GFXMODE=.*|GRUB_GFXMODE=1920x1080|' /etc/default/grub
-  else
-    echo 'GRUB_GFXMODE=1920x1080' | sudo tee -a /etc/default/grub > /dev/null
-  fi
-
-  # Set GRUB_GFXPAYLOAD_LINUX
-  if grep -q "^GRUB_GFXPAYLOAD_LINUX=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_GFXPAYLOAD_LINUX=.*|GRUB_GFXPAYLOAD_LINUX=keep|' /etc/default/grub
-  else
-    echo 'GRUB_GFXPAYLOAD_LINUX=keep' | sudo tee -a /etc/default/grub > /dev/null
-  fi
-
-  # Comment out GRUB_TERMINAL_OUTPUT if it exists
-  if grep -q "^GRUB_TERMINAL_OUTPUT=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_TERMINAL_OUTPUT=|# GRUB_TERMINAL_OUTPUT=|' /etc/default/grub
-  fi
-
-  # Comment out GRUB_TERMINAL if it exists
-  if grep -q "^GRUB_TERMINAL=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_TERMINAL=|# GRUB_TERMINAL=|' /etc/default/grub
-  fi
-
-  # Set GRUB_DEFAULT to saved (will be set to latest kernel below)
-  if grep -q "^GRUB_DEFAULT=" /etc/default/grub; then
-    sudo sed -i 's|^GRUB_DEFAULT=.*|GRUB_DEFAULT=saved|' /etc/default/grub
-  else
-    echo 'GRUB_DEFAULT=saved' | sudo tee -a /etc/default/grub > /dev/null
-  fi
-fi
-
-# Update grub config
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-# Set latest (non-LTS) kernel as default
-set_latest_kernel_default() {
-  # Find latest non-LTS kernel version
-  latest_kernel=$(ls -t /boot/vmlinuz-linux* 2>/dev/null | grep -v "lts" | head -1 | xargs basename | sed 's/vmlinuz-//')
-  
-  if [ -z "$latest_kernel" ]; then
-    return
-  fi
-
-  # Find the menu entry index for latest kernel in grub.cfg
-  # Count menu entries before the latest kernel entry
-  entry_num=0
-  while IFS= read -r line; do
-    if [[ "$line" =~ ^menuentry.*"$latest_kernel" ]]; then
-      sudo grub-set-default "$entry_num" 2>/dev/null && return
+# Funkce pro nastavení hodnoty (buď nahradí existující, nebo přidá na konec)
+set_opt() {
+    local key="$1"
+    local value="$2"
+    if grep -q "^$key=" "$GRUB_CFG"; then
+        sudo sed -i "s|^$key=.*|$key=\"$value\"|" "$GRUB_CFG"
+    else
+        echo "$key=\"$value\"" | sudo tee -a "$GRUB_CFG" > /dev/null
     fi
-    if [[ "$line" =~ ^menuentry ]]; then
-      ((entry_num++))
-    fi
-  done < /boot/grub/grub.cfg
 }
 
-set_latest_kernel_default
+# A) Zakomentování řádků, které rozbíjí grafická témata (důležité!)
+sudo sed -i 's/^GRUB_TERMINAL_OUTPUT=/#&/' "$GRUB_CFG"
+sudo sed -i 's/^GRUB_TERMINAL=/#&/' "$GRUB_CFG"
 
-# Verify theme is applied
-echo "Verifying GRUB theme configuration:"
-grep -n "theme" /boot/grub/grub.cfg
+# B) Nastavení tématu a rozlišení
+set_opt "GRUB_THEME" "$THEME_DIR/$THEME_NAME/theme.txt"
+set_opt "GRUB_GFXMODE" "1920x1080"
+set_opt "GRUB_GFXPAYLOAD_LINUX" "keep"
 
+# C) Nastavení defaultního kernelu
+# 'saved' + 'GRUB_SAVEDEFAULT' zajistí, že si GRUB pamatuje vaši poslední volbu.
+# Pokud nic nezvolíte, bere ten první (což je na Archu vždy ten nejnovější kernel).
+set_opt "GRUB_DEFAULT" "saved"
+set_opt "GRUB_SAVEDEFAULT" "true"
+
+# --- 4. Aplikace změn ---
+echo "Generuji nový grub.cfg..."
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "Hotovo. Téma je aktivní."
