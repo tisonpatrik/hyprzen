@@ -44,10 +44,41 @@ if [ -f /etc/default/grub ]; then
   if grep -q "^GRUB_TERMINAL=" /etc/default/grub; then
     sudo sed -i 's|^GRUB_TERMINAL=|# GRUB_TERMINAL=|' /etc/default/grub
   fi
+
+  # Set GRUB_DEFAULT to saved (will be set to latest kernel below)
+  if grep -q "^GRUB_DEFAULT=" /etc/default/grub; then
+    sudo sed -i 's|^GRUB_DEFAULT=.*|GRUB_DEFAULT=saved|' /etc/default/grub
+  else
+    echo 'GRUB_DEFAULT=saved' | sudo tee -a /etc/default/grub > /dev/null
+  fi
 fi
 
 # Update grub config
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Set latest (non-LTS) kernel as default
+set_latest_kernel_default() {
+  # Find latest non-LTS kernel version
+  latest_kernel=$(ls -t /boot/vmlinuz-linux* 2>/dev/null | grep -v "lts" | head -1 | xargs basename | sed 's/vmlinuz-//')
+  
+  if [ -z "$latest_kernel" ]; then
+    return
+  fi
+
+  # Find the menu entry index for latest kernel in grub.cfg
+  # Count menu entries before the latest kernel entry
+  entry_num=0
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^menuentry.*"$latest_kernel" ]]; then
+      sudo grub-set-default "$entry_num" 2>/dev/null && return
+    fi
+    if [[ "$line" =~ ^menuentry ]]; then
+      ((entry_num++))
+    fi
+  done < /boot/grub/grub.cfg
+}
+
+set_latest_kernel_default
 
 # Verify theme is applied
 echo "Verifying GRUB theme configuration:"
