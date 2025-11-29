@@ -110,7 +110,7 @@
         }
     },
     "battery": {
-        "chargingMode": 0
+        "chargingMode": 1
     },
     "brightness": {
         "brightnessStep": 5,
