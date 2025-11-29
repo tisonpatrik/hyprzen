@@ -7,3 +7,7 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 echo "Applying dotfiles configuration..."
 cd "$REPO_ROOT" && make apply
 
+# Set zsh as default shell
+echo "Configuring zsh as default shell..."
+source "$SCRIPT_DIR/zsh.sh"
+
