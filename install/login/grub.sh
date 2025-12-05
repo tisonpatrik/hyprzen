@@ -47,7 +47,7 @@ set_opt "GRUB_GFXPAYLOAD_LINUX" "keep"
 
 # C) Set default kernel (THIS IS THE CHANGE)
 # Set index 0 (on Arch, 0 is always the latest kernel)
-set_opt "GRUB_DEFAULT" "0"
+set_opt "GRUB_DEFAULT" "Arch Linux, with Linux linux"
 # Disable saving last choice (so it doesn't get stuck on LTS if you use it once)
 set_opt "GRUB_SAVEDEFAULT" "false"
 
