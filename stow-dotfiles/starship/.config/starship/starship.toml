@@ -1,23 +1,49 @@
-# Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
 # Sets user-defined palette
-# Palettes must be defined _after_ this line
-palette = "catppuccin_macchiato"
+palette = "catppuccin_mocha"
 
-# Starship modules
-[character]
-# Note the use of Catppuccin color 'peach'
-success_symbol = "[[󰄛](green) ❯](peach)"
-error_symbol = "[[󰄛](red) ❯](peach)"
-vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
+format = """
+$directory$git_branch$git_status$line_break\
+$character"""
 
-[git_branch]
-style = "bold mauve"
+right_format = """$cmd_duration"""
+
+add_newline = true
 
 [directory]
-truncation_length = 4
-style = "bold lavender"
+style = "blue"
+truncation_length = 0
+truncate_to_repo = false
+read_only = " 🔒"
+format = "[$path]($style)"
+
+[git_branch]
+style = "overlay1"
+symbol = ""
+format = " [$branch]($style)"
+
+[git_status]
+style = "teal"
+modified = "*"
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+untracked = "?"
+stashed = "$"
+renamed = "»"
+deleted = "✘"
+format = "([$all_status$ahead_behind]($style))"
+
+[cmd_duration]
+min_time = 5000
+style = "yellow"
+format = "[$duration]($style)"
+
+[character]
+success_symbol = "[❯](mauve)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
