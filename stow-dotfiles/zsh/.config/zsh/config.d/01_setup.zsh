@@ -1,5 +1,5 @@
-EDITOR=nvim
-VISUAL=nvim
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 fastfetch
 
@@ -42,5 +42,4 @@ if command -v fzf &>/dev/null; then
 fi
 eval "$(zoxide init --cmd cd zsh)"
 
-# # direnv
-# eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"

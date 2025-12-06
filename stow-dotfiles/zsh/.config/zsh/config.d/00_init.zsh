@@ -53,6 +53,3 @@ zinit snippet OMZP::command-not-found
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
-
-# Initialize oh-my-posh prompt
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/zen.toml)"
