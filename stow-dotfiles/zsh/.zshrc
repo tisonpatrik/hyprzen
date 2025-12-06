@@ -1,27 +1,14 @@
-#            _
-#    _______| |__  _ __ ___
-#   |_  / __| '_ \| '__/ __|
-#  _ / /\__ \ | | | | | (__
-# (_)___|___/_| |_|_|  \___|
-#
+#!/bin/zsh
 
-# DON'T CHANGE THIS FILE
+ZSH_CONFIG_DIR="$HOME/.config/zsh/config.d"
 
-# You can define your custom configuration by adding
-# files in ~/.config/zsh/zshrc
-# or by creating a folder ~/.config/zsh/zshrc/custom
-# with copies of files from ~/.config/zsh/zshrc
-# -----------------------------------------------------
+if [[ -d "$ZSH_CONFIG_DIR" ]]; then
 
-# -----------------------------------------------------
-# Load configuration
-# -----------------------------------------------------
+    for config_file in "$ZSH_CONFIG_DIR"/*.zsh; do
 
-for f in $HOME/.config/zsh/zshrc/*; do
-    if [ ! -d $f ]; then
-        c=`echo $f | sed -e "s=zshrc=zshrc/custom="`
-        [[ -f $c ]] && source $c || source $f
-    fi
-done 
+        if [[ -r "$config_file" ]]; then
+            source "$config_file"
+        fi
 
-export PATH=/home/patrik/.opencode/bin:$PATH
+    done
+fi

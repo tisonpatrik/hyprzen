@@ -1,3 +1,4 @@
+
 # Ensure system paths are always included and deduplicated
 typeset -U path PATH
 
@@ -6,14 +7,14 @@ path=(
   # User paths
   $HOME/.local/bin
   $HOME/bin
-  
+
   # System paths
   /usr/local/bin
   /usr/bin
   /bin
   /usr/sbin
   /sbin
-  
+
   # Keep existing paths
   $path
 )
