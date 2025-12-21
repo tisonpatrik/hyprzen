@@ -18,7 +18,7 @@ function mkcd {
   mkdir -p "$1" && cd "$1"
 }
 
-function up {
+function .. {
   local d=""
   local limit=$1
   for ((i=1 ; i <= limit ; i++)); do
