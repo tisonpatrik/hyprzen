@@ -44,3 +44,7 @@ function fkill {
       echo $pid | xargs kill -"${1:-9}"
   fi
 }
+
+function dircopy() {
+    fd --type f -E .env "$@" -X bat --style=header,grid --color=never | wl-copy
+}
