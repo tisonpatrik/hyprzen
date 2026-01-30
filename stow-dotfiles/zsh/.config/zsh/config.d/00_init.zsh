@@ -7,6 +7,7 @@ path=(
   # User paths
   $HOME/.local/bin
   $HOME/bin
+  $HOME/ardupilot/Tools/autotest
 
   # System paths
   /usr/local/bin
